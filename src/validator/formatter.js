@@ -1,5 +1,8 @@
 let trim = function(){
-    console.log('The result after trimming the string is :' + ' functionUp batch  '.trim() + '.')
+    let a="                                             functionup"
+
+
+    console.log('The result after trimming the string is :' + a.trim() + '.')
    }
    
    let changetoLowerCase = function() {
