@@ -1,30 +1,54 @@
-const lodash = require('lodash');
+
 const express = require('express');
-const externalModule = require('../logger/logger')
-const validator=require('../validator/formatter')
-const util=require('../util/helper')
+
 const router = express.Router();
 
-router.get('/test-me', function (req, res) {
-    
-    externalModule.Welcome()
-    util.printTodaysDate()
-  util.printCurrentMonth()
-  util.printBatchInformation ()
-  validator.changeCaseToLower()
-  validator.changeCaseToUpper()
-      validator.trimString()
-    res.send('My first ever api!')
-});
-router.get('/hello', function (req, res){
-  const month=["january","february","march","april","may","june","july","august","september","october","november","december"]
-  console.log(lodash.chunk(month,3))
-  const oddNumbers=[1,3,5,7,9,11,13,15,17,19]
-  console.log(lodash.tail(oddNumbers))
-  const Numbers=[1,1,2,5,5]
-  console.log(lodash.union(Numbers))
-  const Movies=[["horror","The Shining"],["drama","Titanic"],["thriller","Shutter Island"],["fantasy","Pans Labyrinth"]]
-  console.log(lodash.fromPairs(Movies))
+const Movies=['Rang de basanti', 'The shining', 'Lord of the rings', 'Batman begins']
+router.get('/Movies', function (req, res){
+  res.send(Movies)
+  
+})
+router.get('/movies/:indexNumber',function(req,res)
+{
+  const indexNumber =req.params.indexNumber
+  if(indexNumber<Movies[indexNumber]){
+    res.send(Movies[indexNumber-1])
+  }
+  
+else{
+  res.send("use a valid index")}
+})
+
+// problem 3
+const films=[{
+  "id": 1,
+  "name": "Incredibles"
+},{
+  "id":2,
+  "name": "Incendies"
+},{
+  "id":3,
+  "name":"Rang de Basanti"
+},{
+
+  "id":4,
+  "name": "Finding Nemo"
+}]
+
+
+router.get('/films',function(req,res){
+  res.send(films)
+})
+
+// Problem 4
+router.get('/films/:filmId',function(req,res){
+  const filmId = req.params.filmId
+  if(filmId<films.length){
+    res.send(films[filmId-1])
+  }
+  else{
+    res.send("No movie exists with this id")
+  }
 })
 
 module.exports= router;
