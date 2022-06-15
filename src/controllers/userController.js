@@ -27,7 +27,7 @@ const loginUser = async function(req, res){
   }
 }
 
-//see user data
+//see user data by authenticate and authorise
 let getUserData = async function(req, res){
   let token = req.headers["x-auth-token"]
   if(!token){
@@ -46,7 +46,12 @@ let getUserData = async function(req, res){
         res.send({ status: false, msg: "No such user exists" })
       }
       else{
-        res.send({ status: true, data: userDetails })
+        if(userId===decodedToken.userId){
+          res.send({ status: true, data: userDetails })
+        }
+        else{
+          res.send("User not valid")
+        } 
       } 
     }
   }
