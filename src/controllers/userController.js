@@ -12,8 +12,9 @@ const createUser = async function (req, res){
 const loginUser = async function(req, res){
   let userName = req.body.emailId
   let password = req.body.password
+  // const {userName,password} = req.body
 
-  let user = await userModel.findOne({emailId:userName,password:password})
+  const user = await userModel.findOne({emailId:userName,password})
   if(!user){
     res.send({status:false, msg:"username or the password is not corerct"})
   }
